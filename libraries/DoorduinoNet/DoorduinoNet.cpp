@@ -6,6 +6,7 @@
 
 #include <inttypes.h>
 #include <Ethernet.h>
+#include <HTTPClient.h> // https://github.com/interactive-matter/HTTPClient/downloads
 #include <sha256.h> // https://github.com/Cathedrow/Cryptosuite
 #include "WProgram.h"
 #include "DoorduinoNet.h"
@@ -175,3 +176,20 @@ bool DoorduinoNet::get_revocation(byte *server, uint8_t *revoke_hash) {
     }
   }
 }
+
+bool DoorduinoNet::spaceLoopClosed(char *host,byte *ip) {
+  HTTPClient client(host,ip);
+
+  FILE *result = client.getURI("/loop.php");
+
+  int returnCode = client.getLastReturnCode();
+  if(result!=NULL) {
+    client.closeStream(result);
+  } else {
+    DBG("failed to connect to check space loop state\n");
+  }
+
+  if(returnCode==200) return false;
+  if(returnCode==204) return true;
+}
+
