@@ -21,7 +21,8 @@ class DoorduinoNet {
   private:
     int  _rst_pin;
     uint8_t *_mac;
-    uint8_t *_ip;   
+    uint8_t *_ip;
+    Server _server;
 };
 
 #endif

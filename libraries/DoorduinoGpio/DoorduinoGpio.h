@@ -17,11 +17,16 @@
 #define LED_YELLOW	(LED_GREEN|LED_RED)
 #define LED_WHITE	(LED_RED|LED_GREEN|LED_BLUE)
 
+#define LED_PRI1	(0<<4)
+#define LED_PRI2	(1<<4)
+#define LED_PRI3	(2<<4)
+#define LED_PRI4	(3<<4)
+
 class DoorduinoGpio {
   public:
     DoorduinoGpio(int rpin,int gpin,int bpin,int strikepin);
     void set_led(byte color);
-    void blink_led(byte col1,byte col2,int duration);
+    void blink_led(byte col1,byte col2,int period,int t);
     void open_door(void);
     void close_door(void);
   private:

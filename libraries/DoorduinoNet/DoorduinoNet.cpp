@@ -17,7 +17,7 @@
 #define DBG(...) {}
 #endif
 
-DoorduinoNet::DoorduinoNet(int ethrst_pin,uint8_t *mac, uint8_t *ip) {
+DoorduinoNet::DoorduinoNet(int ethrst_pin,uint8_t *mac, uint8_t *ip) : _server(23) {
   _mac=mac;
   _ip=ip;
   _rst_pin=ethrst_pin;
@@ -33,8 +33,18 @@ void DoorduinoNet::reset(void) {
   delay(200);
   Ethernet.begin(_mac,_ip);
   delay(200);
+  _server.begin();
 }
-
+/*
+bool DoorduinoNet::processClient(bool *loopStatus) {
+  Client client = _server.available();
+  if(client == true) {
+    if(client.available()==1) {
+    }
+  }
+  return true;
+}
+*/
 /*
 ** send hash of key address to log server
 ** returns true on success, false otherwise

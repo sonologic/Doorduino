@@ -20,19 +20,18 @@ void DoorduinoGpio::set_led(byte color) {
 }
 
 /*
-** blink led with a frequency of 1hz
+** blink led with a frequency of 'period' iterations
+** needs to be called on each iteration with parameter t
+** indicating the progress of iterations
 ** col1 - color for 1st half of period
 ** col2 - color for 2nd half of period
-** duration - duration in seconds
-** leaves led in col2
+** period - period in iterations
+** t - time counter (iterations, either increasing or decreasing)
 */
-void DoorduinoGpio::blink_led(byte col1,byte col2,int duration) {
-  for(int i=0;i<duration;i++) {
-    set_led(col1);
-    delay(500);
-    set_led(col2);
-    delay(500);
-  }
+void DoorduinoGpio::blink_led(byte col1,byte col2,int period,int t) {
+  int tt = t%period;
+
+  set_led( (tt<(period/2))?col1:col2 );  
 }
 
 void DoorduinoGpio::open_door() {
