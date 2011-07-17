@@ -15,8 +15,9 @@ typedef struct {
   bool s3;
   byte addr[8];
   bool log_addr;
-  byte raddr[8];
-  bool revoke_raddr;
+  uint8_t revoke_hash[32];
+  bool log_revocation;
+  bool log_revocation_failed;
   bool loop_closed;
   bool space_closed;
 } DoorduinoEnvironment;
